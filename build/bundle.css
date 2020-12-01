@@ -1,0 +1,5 @@
+header.svelte-u4jv14{font-size:200%;text-align:center}
+.board.svelte-nexzyj{display:grid;margin:auto;text-align:center;gap:5px;padding:5px;background:rgb(171, 120, 17);margin-bottom:10px}.board.board2.svelte-nexzyj{width:calc(2*55px - 5px);grid-template-columns:repeat(2, 50px)}.board.board4.svelte-nexzyj{width:calc(4*55px - 5px);grid-template-columns:repeat(4, 50px)}.board.board6.svelte-nexzyj{width:calc(6*55px - 5px);grid-template-columns:repeat(6, 50px)}
+.tile.svelte-18dbvyr.svelte-18dbvyr{width:50px;height:50px;line-height:50px;text-align:center;font-size:36px;perspective:1000px;cursor:pointer}.tile.svelte-18dbvyr .svelte-18dbvyr{transition:0.5s ease;backface-visibility:hidden;-webkit-backface-visibility:hidden}.hidden.svelte-18dbvyr .front.svelte-18dbvyr{transform:rotateY(-180deg)}.hidden.svelte-18dbvyr .back.svelte-18dbvyr{transform:rotateY(-360deg)}.front.svelte-18dbvyr.svelte-18dbvyr{position:absolute;height:50px;width:50px;background:#4a8}.back.svelte-18dbvyr.svelte-18dbvyr{position:absolute;height:50px;width:50px;background:#a4a;transform:rotateY(-180deg)}
+
+/*# sourceMappingURL=bundle.css.map */
