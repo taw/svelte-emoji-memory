@@ -1,21 +1,18 @@
 <script>
-  export let visible;
-  export let text;
-
-  function handleClick() {
-
-  }
+  export let hidden;
+  export let tile;
+  export let onclick;
 </script>
 
 <style>
 .tile {
   width: 50px;
   height: 50px;
-  /* border: 5px solid black; */
   line-height: 50px;
   text-align: center;
   font-size: 36px;
   perspective: 1000px;
+  cursor: pointer;
 }
 
 .tile * {
@@ -24,11 +21,11 @@
   -webkit-backface-visibility: hidden;
 }
 
-:hover .front {
+.hidden .front {
   transform: rotateY(-180deg);
 }
 
-:hover .back {
+.hidden .back {
   transform: rotateY(-360deg);
 }
 
@@ -48,7 +45,7 @@
 }
 </style>
 
-<div on:click={handleClick} class="tile">
+<div class="tile" class:hidden on:click={onclick}>
   <div class="back">?</div>
-  <div class="front">{text}</div>
+  <div class="front">{tile}</div>
 </div>

@@ -1,15 +1,65 @@
 <script>
-  import emoji from "./emoji.js";
-  import Tile from "./Tile.svelte";
-  import { unsort } from "array-unsort";
+  import Board from "./Board.svelte";
+  import { create_board, is_won } from "./game.js"
 
-  function create_game(size) {
-    let e = unsort(emoji).slice(0, size);
-    return unsort([...e, ...e]);
+  let playing = true
+  let won = false
+  let board = create_board(4, 4)
+  let first = null
+  let second = null
+
+  function win_game() {
+    playing = false
+    won = true
   }
 
-  let game2x2 = create_game(2)
-  let game4x4 = create_game(8)
+  function is_match() {
+    return board[first].tile === board[second].tile
+  }
+
+  function choose_first(i) {
+    first = i
+    board[i].state = "first"
+  }
+
+  function choose_second(i) {
+    second = i
+    board[i].state = "second"
+
+    if (is_match()) {
+      board[first].state = "known"
+      board[second].state = "known"
+      first = null
+      second = null
+      if (is_won(board)) {
+        win_game()
+      }
+    }
+  }
+
+  function clear_previous_selection() {
+    if (first !== null) {
+      board[first].state = "hidden"
+      first = null
+    }
+    if (second !== null) {
+      board[second].state = "hidden"
+      second = null
+    }
+  }
+
+  function onclick(i) {
+    if (board[i].state !== "hidden") return;
+    if (first === null) {
+      choose_first(i)
+    } else if (second === null) {
+      choose_second(i)
+    } else {
+      clear_previous_selection()
+      choose_first(i)
+    }
+  }
+
 </script>
 
 <style>
@@ -17,39 +67,11 @@ header {
   font-size: 200%;
   text-align: center;
 }
-
-.board {
-  display: grid;
-  margin: auto;
-  text-align: center;
-  gap: 5px;
-  padding: 5px;
-  background: rgb(171, 120, 17);
-
-  margin-bottom: 10px;
-}
-
-.board.board-4x4 {
-  width: 215px;
-  grid-template-columns: 50px 50px 50px 50px;
-}
-
-.board.board-2x2 {
-  width: 105px;
-  grid-template-columns: 50px 50px;
-}
 </style>
 
 <header>Emoji Memory Game</header>
 
-<div class="board board-2x2">
-  {#each game2x2 as g}
-    <Tile text={g} visible={false} />
-  {/each}
-</div>
-
-<div class="board board-4x4">
-  {#each game4x4 as g}
-    <Tile text={g} visible={false} />
-  {/each}
- </div>
+<Board board={board} onclick={onclick} />
+{#if won}
+  <header>Victory!</header>
+{/if}
